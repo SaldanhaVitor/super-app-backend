@@ -32,6 +32,13 @@ export class ClientsRepository {
     return this.clients.find((client) => client.id == id);
   }
 
+  findOneByEmail(email: string): Promise<ClientResponseDto> {
+    return new Promise((resolve) => {
+      const client = this.clients.find((client) => client.email == email);
+      resolve(client);
+    });
+  }
+
   update(id: number, updateClientDto: UpdateClientDto) {
     return `This action updates a #${id} client`;
   }
