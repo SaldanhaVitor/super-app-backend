@@ -13,6 +13,9 @@ export class ConfigSwagger {
   }
 
   private getBuildDocument(): Omit<OpenAPIObject, 'paths'> {
-    return new DocumentBuilder().setTitle('scout').setVersion('1.0.0').build();
+    return new DocumentBuilder()
+      .setTitle('super-app-backend')
+      .setVersion('1.0.0')
+      .build();
   }
 }
