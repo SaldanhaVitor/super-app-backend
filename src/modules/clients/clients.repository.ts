@@ -29,21 +29,21 @@ export class ClientsRepository {
     });
   }
 
-  findOneById(id: string): Promise<ClientResponseDto> {
+  async findOneById(id: string): Promise<ClientResponseDto> {
     return new Promise((resolve) => {
       const client = this.clients.find((client) => client.id == id);
       resolve(client);
     });
   }
 
-  findOneByEmail(email: string): Promise<ClientResponseDto> {
+  async findOneByEmail(email: string): Promise<ClientResponseDto> {
     return new Promise((resolve) => {
       const client = this.clients.find((client) => client.email == email);
       resolve(client);
     });
   }
 
-  update(updateClientDto: ClientResponseDto): Promise<ClientResponseDto> {
+  async update(updateClientDto: ClientResponseDto): Promise<ClientResponseDto> {
     return new Promise((resolve) => {
       const client = this.clients.find(
         (client) => client.id == updateClientDto.id,
