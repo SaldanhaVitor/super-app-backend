@@ -3,6 +3,7 @@ import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
 import { Client } from './entities/client.entity';
 import { ClientResponseDto } from './dto/client-response.dto';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class ClientsRepository {
@@ -13,17 +14,20 @@ export class ClientsRepository {
   }
 
   save(createClientDto: CreateClientDto): ClientResponseDto {
-    const client = createClientDto;
-    this.clients.push(client);
-    return client;
+    const newClient = {
+      id: uuidv4(),
+      ...createClientDto,
+    };
+    this.clients.push(newClient);
+    return newClient;
   }
 
   findAll(): ClientResponseDto[] {
     return this.clients;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} client`;
+  findOneById(id: string): ClientResponseDto {
+    return this.clients.find((client) => client.id == id);
   }
 
   update(id: number, updateClientDto: UpdateClientDto) {

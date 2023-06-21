@@ -27,6 +27,9 @@ export class ClientsController {
     schema: {
       type: 'object',
       properties: {
+        id: {
+          type: 'string',
+        },
         name: {
           type: 'string',
         },
@@ -42,13 +45,43 @@ export class ClientsController {
     return this.clientsService.create(createClientDto);
   }
 
+  @ApiTags('clients')
+  @ApiResponse({
+    status: 200,
+    description: 'Clients',
+    schema: {
+      type: 'array',
+      items: {
+        properties: {
+          id: {
+            type: 'string',
+          },
+          name: {
+            type: 'string',
+          },
+          email: {
+            type: 'string',
+          },
+        },
+      },
+    },
+  })
   @Get()
+  findAll(): ClientResponseDto[] {
+    return this.clientsService.findAll();
+  }
+
+  @ApiTags('clients')
+  @Get(':id')
   @ApiResponse({
     status: 200,
     description: 'Clients',
     schema: {
       type: 'object',
       properties: {
+        id: {
+          type: 'string',
+        },
         name: {
           type: 'string',
         },
@@ -58,20 +91,18 @@ export class ClientsController {
       },
     },
   })
-  findAll(): ClientResponseDto[] {
-    return this.clientsService.findAll();
-  }
-
-  @Get(':id')
+  @UsePipes(ValidationPipe)
   findOne(@Param('id') id: string) {
-    return this.clientsService.findOne(+id);
+    return this.clientsService.findOne(id);
   }
 
+  @ApiTags('clients')
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto) {
     return this.clientsService.update(+id, updateClientDto);
   }
 
+  @ApiTags('clients')
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.clientsService.remove(+id);

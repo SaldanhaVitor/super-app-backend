@@ -16,8 +16,8 @@ export class ClientsService {
     return this.clientRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} client`;
+  findOne(id: string): ClientResponseDto {
+    return this.clientRepository.findOneById(id);
   }
 
   update(id: number, updateClientDto: UpdateClientDto) {
