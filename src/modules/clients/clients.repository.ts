@@ -1,19 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
-import { ClientsRepository } from './clients.repository';
+import { Client } from './entities/client.entity';
 import { ClientResponseDto } from './dto/client-response.dto';
 
 @Injectable()
-export class ClientsService {
-  constructor(private readonly clientRepository: ClientsRepository) {}
+export class ClientsRepository {
+  private clients: Client[];
 
-  create(createClientDto: CreateClientDto): ClientResponseDto {
-    return this.clientRepository.save(createClientDto);
+  constructor() {
+    this.clients = [];
+  }
+
+  save(createClientDto: CreateClientDto): ClientResponseDto {
+    const client = createClientDto;
+    this.clients.push(client);
+    return client;
   }
 
   findAll(): ClientResponseDto[] {
-    return this.clientRepository.findAll();
+    return this.clients;
   }
 
   findOne(id: number) {

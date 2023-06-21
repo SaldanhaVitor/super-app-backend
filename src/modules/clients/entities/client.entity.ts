@@ -1,1 +1,4 @@
-export class Client {}
+export class Client {
+  name: string;
+  email: string;
+}
