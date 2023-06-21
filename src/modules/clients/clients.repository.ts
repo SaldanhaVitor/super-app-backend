@@ -28,8 +28,11 @@ export class ClientsRepository {
     return this.clients;
   }
 
-  findOneById(id: string): ClientResponseDto {
-    return this.clients.find((client) => client.id == id);
+  findOneById(id: string): Promise<ClientResponseDto> {
+    return new Promise((resolve) => {
+      const client = this.clients.find((client) => client.id == id);
+      resolve(client);
+    });
   }
 
   findOneByEmail(email: string): Promise<ClientResponseDto> {
