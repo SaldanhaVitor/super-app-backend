@@ -13,13 +13,15 @@ export class ClientsRepository {
     this.clients = [];
   }
 
-  save(createClientDto: CreateClientDto): ClientResponseDto {
-    const newClient = {
-      id: uuidv4(),
-      ...createClientDto,
-    };
-    this.clients.push(newClient);
-    return newClient;
+  async save(createClientDto: CreateClientDto): Promise<ClientResponseDto> {
+    return new Promise((resolve) => {
+      const newClient = {
+        id: uuidv4(),
+        ...createClientDto,
+      };
+      this.clients.push(newClient);
+      resolve(newClient);
+    });
   }
 
   findAll(): ClientResponseDto[] {

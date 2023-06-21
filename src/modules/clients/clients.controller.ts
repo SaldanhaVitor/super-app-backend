@@ -41,7 +41,7 @@ export class ClientsController {
     },
   })
   @UsePipes(ValidationPipe)
-  create(@Body() createClientDto: CreateClientDto): ClientResponseDto {
+  create(@Body() createClientDto: CreateClientDto): Promise<ClientResponseDto> {
     return this.clientsService.create(createClientDto);
   }
 

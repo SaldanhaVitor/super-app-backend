@@ -8,7 +8,7 @@ import { ClientResponseDto } from './dto/client-response.dto';
 export class ClientsService {
   constructor(private readonly clientRepository: ClientsRepository) {}
 
-  create(createClientDto: CreateClientDto): ClientResponseDto {
+  async create(createClientDto: CreateClientDto): Promise<ClientResponseDto> {
     return this.clientRepository.save(createClientDto);
   }
 
