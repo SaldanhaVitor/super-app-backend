@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateClientDto } from './dto/create-client.dto';
-import { UpdateClientDto } from './dto/update-client.dto';
 import { Client } from './entities/client.entity';
 import { ClientResponseDto } from './dto/client-response.dto';
 import { v4 as uuidv4 } from 'uuid';
