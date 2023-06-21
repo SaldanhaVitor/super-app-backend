@@ -9,6 +9,10 @@ import ClientAlreadyExistsException from './exceptions/client-already-exists.exc
 export class ClientsService {
   constructor(private readonly clientRepository: ClientsRepository) {}
 
+  private async findByEmail(email: string): Promise<ClientResponseDto> {
+    return await this.clientRepository.findOneByEmail(email);
+  }
+
   async create(createClientDto: CreateClientDto): Promise<ClientResponseDto> {
     const clientAlreadyExists = await this.findByEmail(createClientDto.email);
     if (clientAlreadyExists) {
@@ -19,10 +23,6 @@ export class ClientsService {
 
   findAll(): ClientResponseDto[] {
     return this.clientRepository.findAll();
-  }
-
-  async findByEmail(email: string): Promise<ClientResponseDto> {
-    return await this.clientRepository.findOneByEmail(email);
   }
 
   findOne(id: string): ClientResponseDto {
