@@ -1,4 +1,8 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateClientDto } from './create-client.dto';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString } from 'class-validator';
 
-export class UpdateClientDto extends PartialType(CreateClientDto) {}
+export class UpdateClientDto {
+  @ApiProperty()
+  @IsString()
+  name: string;
+}

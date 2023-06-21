@@ -44,8 +44,14 @@ export class ClientsRepository {
     });
   }
 
-  update(id: number, updateClientDto: UpdateClientDto) {
-    return `This action updates a #${id} client`;
+  update(updateClientDto: ClientResponseDto): Promise<ClientResponseDto> {
+    return new Promise((resolve) => {
+      const client = this.clients.find(
+        (client) => client.id == updateClientDto.id,
+      );
+      Object.assign(client, updateClientDto);
+      resolve(client);
+    });
   }
 
   remove(id: number) {

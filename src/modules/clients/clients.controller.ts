@@ -98,8 +98,27 @@ export class ClientsController {
 
   @ApiTags('clients')
   @Patch(':id')
+  @ApiResponse({
+    status: 200,
+    description: 'Clients',
+    schema: {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'string',
+        },
+        name: {
+          type: 'string',
+        },
+        email: {
+          type: 'string',
+        },
+      },
+      required: ['name'],
+    },
+  })
   update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto) {
-    return this.clientsService.update(+id, updateClientDto);
+    return this.clientsService.update(id, updateClientDto);
   }
 
   @ApiTags('clients')
