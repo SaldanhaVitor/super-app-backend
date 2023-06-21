@@ -123,7 +123,7 @@ export class ClientsController {
 
   @ApiTags('clients')
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.clientsService.remove(+id);
+  async remove(@Param('id') id: string): Promise<void> {
+    await this.clientsService.remove(id);
   }
 }

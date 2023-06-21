@@ -43,7 +43,8 @@ export class ClientsService {
     return this.clientRepository.update(client);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} client`;
+  async remove(id: string): Promise<void> {
+    const client = await this.findOne(id);
+    await this.clientRepository.remove(client.id);
   }
 }

@@ -54,7 +54,11 @@ export class ClientsRepository {
     });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} client`;
+  async remove(id: string): Promise<void> {
+    new Promise((resolve) => {
+      const clientIndex = this.clients.findIndex((client) => client.id == id);
+      this.clients.splice(clientIndex, 1);
+      resolve(clientIndex);
+    });
   }
 }
