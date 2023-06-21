@@ -67,7 +67,7 @@ export class ClientsController {
     },
   })
   @Get()
-  findAll(): ClientResponseDto[] {
+  findAll(): Promise<ClientResponseDto[]> {
     return this.clientsService.findAll();
   }
 
@@ -92,7 +92,7 @@ export class ClientsController {
     },
   })
   @UsePipes(ValidationPipe)
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<ClientResponseDto> {
     return this.clientsService.findOne(id);
   }
 

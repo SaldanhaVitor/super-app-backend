@@ -24,8 +24,10 @@ export class ClientsRepository {
     });
   }
 
-  findAll(): ClientResponseDto[] {
-    return this.clients;
+  findAll(): Promise<ClientResponseDto[]> {
+    return new Promise((resolve) => {
+      resolve(this.clients);
+    });
   }
 
   findOneById(id: string): Promise<ClientResponseDto> {

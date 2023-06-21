@@ -22,7 +22,7 @@ export class ClientsService {
     return this.clientRepository.save(createClientDto);
   }
 
-  findAll(): ClientResponseDto[] {
+  async findAll(): Promise<ClientResponseDto[]> {
     return this.clientRepository.findAll();
   }
 
