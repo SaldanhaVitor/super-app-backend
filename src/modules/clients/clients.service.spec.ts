@@ -4,9 +4,11 @@ import { CreateClientDto } from './dto/create-client.dto';
 import { ClientsRepository } from './clients.repository';
 import { v4 as uuidv4 } from 'uuid';
 import ClientAlreadyExistsException from './exceptions/client-already-exists.exception';
+import { FIND_ALL_CLIENTS } from './__mocks__/find-all-clients.mock';
 
 const mockCreateClient = jest.fn();
 const mockFindClientByEmail = jest.fn();
+const mockFindAllClients = jest.fn();
 
 describe('ClientsService', () => {
   let service: ClientsService;
@@ -20,6 +22,7 @@ describe('ClientsService', () => {
           useValue: {
             save: mockCreateClient,
             findOneByEmail: mockFindClientByEmail,
+            findAll: mockFindAllClients,
           },
         },
       ],
@@ -69,6 +72,23 @@ describe('ClientsService', () => {
       );
       expect(mockFindClientByEmail).toHaveBeenCalledTimes(1);
       expect(mockCreateClient).toHaveBeenCalledTimes(0);
+    });
+  });
+
+  describe('findAll', () => {
+    it('Should find many clients', async () => {
+      mockFindAllClients.mockReturnValueOnce(FIND_ALL_CLIENTS);
+      const clients = await service.findAll();
+      expect(clients).toBeDefined();
+      expect(clients).toHaveLength(3);
+      expect(mockFindAllClients).toHaveBeenCalledTimes(1);
+    });
+    it('Should return empty when no client was found', async () => {
+      mockFindAllClients.mockReturnValueOnce([]);
+      const clients = await service.findAll();
+      expect(clients).toBeDefined();
+      expect(clients).toHaveLength(0);
+      expect(mockFindAllClients).toHaveBeenCalledTimes(1);
     });
   });
 });
