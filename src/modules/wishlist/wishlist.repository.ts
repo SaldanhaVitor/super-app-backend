@@ -24,4 +24,13 @@ export class WishlistRepository {
       resolve(wishlist);
     });
   }
+
+  async findByClientId(clientId: string): Promise<WishlistResponseDto> {
+    return new Promise((resolve) => {
+      const wishlist = this.wishlist.find(
+        (wishlist) => wishlist.clientId === clientId,
+      );
+      resolve(wishlist);
+    });
+  }
 }

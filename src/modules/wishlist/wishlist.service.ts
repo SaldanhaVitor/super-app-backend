@@ -3,6 +3,7 @@ import { CreateWishlistDto } from './dto/create-wishlist.dto';
 import { UpdateWishlistDto } from './dto/update-wishlist.dto';
 import { WishlistRepository } from './wishlist.repository';
 import { WishlistResponseDto } from './dto/wishlist-response.dto';
+import WishlistAlreadyExistsException from './exception/wishlist-already-exists.exception';
 
 @Injectable()
 export class WishlistService {
@@ -11,10 +12,17 @@ export class WishlistService {
   async create(
     createWishlistDto: CreateWishlistDto,
   ): Promise<WishlistResponseDto> {
-    const wishlist = await this.wishlistRepository.save(
-      createWishlistDto.clientId,
-    );
+    const { clientId } = createWishlistDto;
+    const wishlistAlreadyExists = await this.findWishlistByClientId(clientId);
+    if (wishlistAlreadyExists) {
+      throw new WishlistAlreadyExistsException();
+    }
+    const wishlist = await this.wishlistRepository.save(clientId);
     return wishlist;
+  }
+
+  async findWishlistByClientId(clientId: string): Promise<WishlistResponseDto> {
+    return this.wishlistRepository.findByClientId(clientId);
   }
 
   findAll() {
