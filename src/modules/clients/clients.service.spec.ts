@@ -5,10 +5,16 @@ import { ClientsRepository } from './clients.repository';
 import { v4 as uuidv4 } from 'uuid';
 import ClientAlreadyExistsException from './exceptions/client-already-exists.exception';
 import { FIND_ALL_CLIENTS } from './__mocks__/find-all-clients.mock';
+import { EXISTENT_CLIENT } from './__mocks__/find-client-by-email.mock';
+import ClientNotFoundException from './exceptions/client-not-found.exception';
+import { UpdateClientDto } from './dto/update-client.dto';
 
 const mockCreateClient = jest.fn();
 const mockFindClientByEmail = jest.fn();
 const mockFindAllClients = jest.fn();
+const mockFindOneById = jest.fn();
+const mockUpdateClient = jest.fn();
+const mockRemoveClient = jest.fn();
 
 describe('ClientsService', () => {
   let service: ClientsService;
@@ -23,6 +29,9 @@ describe('ClientsService', () => {
             save: mockCreateClient,
             findOneByEmail: mockFindClientByEmail,
             findAll: mockFindAllClients,
+            findOneById: mockFindOneById,
+            update: mockUpdateClient,
+            remove: mockRemoveClient,
           },
         },
       ],
@@ -58,11 +67,7 @@ describe('ClientsService', () => {
       expect(mockCreateClient).toHaveBeenCalledTimes(1);
     });
     it('Should throws when client already exists', async () => {
-      mockFindClientByEmail.mockReturnValueOnce({
-        id: uuidv4(),
-        name: 'existent_name',
-        email: 'existent_mail',
-      });
+      mockFindClientByEmail.mockReturnValueOnce(EXISTENT_CLIENT);
       const createClientRequestDto: CreateClientDto = {
         name: 'any_name',
         email: 'existent_email',
@@ -89,6 +94,58 @@ describe('ClientsService', () => {
       expect(clients).toBeDefined();
       expect(clients).toHaveLength(0);
       expect(mockFindAllClients).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('findOneById', () => {
+    it('Should find one client by id', async () => {
+      mockFindOneById.mockReturnValueOnce(EXISTENT_CLIENT);
+      const client = await service.findOne(EXISTENT_CLIENT.id);
+      expect(client).toBeDefined();
+      expect(client.id).toEqual(EXISTENT_CLIENT.id);
+      expect(mockFindOneById).toHaveBeenCalledTimes(1);
+    });
+    it('Should throws when client was not found', async () => {
+      mockFindOneById.mockReturnValueOnce(undefined);
+      await expect(service.findOne(EXISTENT_CLIENT.id)).rejects.toThrow(
+        ClientNotFoundException,
+      );
+      expect(mockFindOneById).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('update', () => {
+    it("Should update client's name", async () => {
+      mockFindOneById.mockReturnValueOnce(EXISTENT_CLIENT);
+      const updateClientDto: UpdateClientDto = { name: 'updated_name' };
+      const client = await service.update(EXISTENT_CLIENT.id, updateClientDto);
+      expect(client).toBeDefined();
+      expect(client.name).toEqual(updateClientDto.name);
+      expect(mockFindOneById).toHaveBeenCalledTimes(1);
+      expect(mockUpdateClient).toHaveBeenCalledTimes(1);
+    });
+    it('Should throws when client was not found', async () => {
+      mockFindOneById.mockReturnValueOnce(undefined);
+      const updateClientDto: UpdateClientDto = { name: 'updated_name' };
+      await expect(service.update(uuidv4(), updateClientDto)).rejects.toThrow(
+        ClientNotFoundException,
+      );
+      expect(mockFindOneById).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('remove', () => {
+    it('Should remove a client by id', async () => {
+      mockFindOneById.mockReturnValueOnce(EXISTENT_CLIENT);
+      await service.remove(EXISTENT_CLIENT.id);
+      expect(mockRemoveClient).toHaveBeenCalledTimes(1);
+    });
+    it('Should throws when client was not found', async () => {
+      mockFindOneById.mockReturnValueOnce(undefined);
+      await expect(service.remove(uuidv4())).rejects.toThrow(
+        ClientNotFoundException,
+      );
+      expect(mockFindOneById).toHaveBeenCalledTimes(1);
     });
   });
 });

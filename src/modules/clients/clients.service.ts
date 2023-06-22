@@ -40,7 +40,8 @@ export class ClientsService {
   ): Promise<ClientResponseDto> {
     const client = await this.findOne(id);
     client.name = updateClientDto.name;
-    return this.clientRepository.update(client);
+    await this.clientRepository.update(client);
+    return client;
   }
 
   async remove(id: string): Promise<void> {
