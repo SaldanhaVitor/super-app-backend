@@ -23,7 +23,7 @@ export class ClientsRepository {
     });
   }
 
-  findAll(): Promise<ClientResponseDto[]> {
+  async findAll(): Promise<ClientResponseDto[]> {
     return new Promise((resolve) => {
       resolve(this.clients);
     });
