@@ -1,26 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { CreateWishlistDto } from './dto/create-wishlist.dto';
 import { UpdateWishlistDto } from './dto/update-wishlist.dto';
+import { WishlistResponseDto } from './dto/wishlist-response.dto';
+import { Wishlist } from './entities/wishlist.entity';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
-export class WishlistService {
-  create(createWishlistDto: CreateWishlistDto) {
-    return 'This action adds a new wishlist';
+export class WishlistRepository {
+  private wishlist: Wishlist[];
+
+  constructor() {
+    this.wishlist = [];
   }
 
-  findAll() {
-    return `This action returns all wishlist`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} wishlist`;
-  }
-
-  update(id: number, updateWishlistDto: UpdateWishlistDto) {
-    return `This action updates a #${id} wishlist`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} wishlist`;
+  async save(clientId: string): Promise<WishlistResponseDto> {
+    return new Promise((resolve) => {
+      const wishlist = {
+        id: uuidv4(),
+        clientId,
+        products: [],
+      };
+      this.wishlist.push(wishlist);
+      resolve(wishlist);
+    });
   }
 }

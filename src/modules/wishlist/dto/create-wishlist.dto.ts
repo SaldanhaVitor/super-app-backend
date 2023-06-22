@@ -1,1 +1,3 @@
-export class CreateWishlistDto {}
+export class CreateWishlistDto {
+  clientId: string;
+}
