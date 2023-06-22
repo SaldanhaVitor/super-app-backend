@@ -3,8 +3,12 @@ import { WishlistService } from './wishlist.service';
 import { WishlistRepository } from './wishlist.repository';
 import { v4 as uuidv4 } from 'uuid';
 import { CreateWishlistDto } from './dto/create-wishlist.dto';
+import { WISHLIST } from './__mocks__/create-wishlist.mock';
+import WishlistAlreadyExistsException from './exception/wishlist-already-exists.exception';
 
 const mockSaveWishlist = jest.fn();
+const mockFindWishlistByClientId = jest.fn();
+
 describe('WishlistService', () => {
   let service: WishlistService;
 
@@ -16,6 +20,7 @@ describe('WishlistService', () => {
           provide: WishlistRepository,
           useValue: {
             save: mockSaveWishlist,
+            findByClientId: mockFindWishlistByClientId,
           },
         },
       ],
@@ -36,6 +41,7 @@ describe('WishlistService', () => {
     it('should create a wishlist', async () => {
       const clientId = uuidv4();
       mockSaveWishlist.mockReturnValue({ id: uuidv4(), clientId });
+      mockFindWishlistByClientId.mockReturnValue(undefined);
       const createWishlistDto: CreateWishlistDto = {
         clientId,
       };
@@ -44,6 +50,18 @@ describe('WishlistService', () => {
       expect(wishlist.id).toBeDefined();
       expect(wishlist.clientId).toBe(createWishlistDto.clientId);
       expect(mockSaveWishlist).toHaveBeenCalledTimes(1);
+    });
+    it('should throws when creating duplicated wishlist by clientId', async () => {
+      mockFindWishlistByClientId.mockReturnValue(WISHLIST);
+      const clientId = uuidv4();
+      const createWishlistDto: CreateWishlistDto = {
+        clientId,
+      };
+      await expect(service.create(createWishlistDto)).rejects.toThrow(
+        WishlistAlreadyExistsException,
+      );
+      expect(mockFindWishlistByClientId).toHaveBeenCalledTimes(1);
+      expect(mockSaveWishlist).toHaveBeenCalledTimes(0);
     });
   });
 });
