@@ -6,8 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dto/create-client.dto';
@@ -40,7 +38,6 @@ export class ClientsController {
       required: ['name', 'email'],
     },
   })
-  @UsePipes(ValidationPipe)
   create(@Body() createClientDto: CreateClientDto): Promise<ClientResponseDto> {
     return this.clientsService.create(createClientDto);
   }
@@ -91,7 +88,6 @@ export class ClientsController {
       },
     },
   })
-  @UsePipes(ValidationPipe)
   findOne(@Param('id') id: string): Promise<ClientResponseDto> {
     return this.clientsService.findOne(id);
   }
