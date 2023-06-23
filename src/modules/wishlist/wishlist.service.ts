@@ -23,8 +23,7 @@ export class WishlistService {
     if (wishlistAlreadyExists) {
       throw new WishlistAlreadyExistsException();
     }
-    const wishlist = await this.wishlistRepository.save(clientId);
-    return wishlist;
+    return this.wishlistRepository.save(clientId);
   }
 
   async addProductToWishlist(
