@@ -5,9 +5,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { CreateWishlistDto } from './dto/create-wishlist.dto';
 import { WISHLIST } from './__mocks__/create-wishlist.mock';
 import WishlistAlreadyExistsException from './exception/wishlist-already-exists.exception';
+import { WISHLIST_WITH_PRODUCT } from './__mocks__/wishlist-products';
 
 const mockSaveWishlist = jest.fn();
 const mockFindWishlistByClientId = jest.fn();
+const mockAddProductToWishlist = jest.fn();
 
 describe('WishlistService', () => {
   let service: WishlistService;
@@ -21,6 +23,7 @@ describe('WishlistService', () => {
           useValue: {
             save: mockSaveWishlist,
             findByClientId: mockFindWishlistByClientId,
+            addProduct: mockAddProductToWishlist,
           },
         },
       ],
@@ -62,6 +65,24 @@ describe('WishlistService', () => {
       );
       expect(mockFindWishlistByClientId).toHaveBeenCalledTimes(1);
       expect(mockSaveWishlist).toHaveBeenCalledTimes(0);
+    });
+  });
+
+  describe('add product to wishlist', () => {
+    it('should add a product', async () => {
+      mockFindWishlistByClientId.mockReturnValue(WISHLIST);
+      const clientId = uuidv4();
+      mockAddProductToWishlist.mockReturnValue({
+        ...WISHLIST_WITH_PRODUCT,
+        clientId,
+      });
+      const productId = uuidv4();
+      const wishlist = await service.addProductToWishlist(clientId, productId);
+      expect(wishlist).toBeDefined();
+      expect(wishlist.clientId).toBe(clientId);
+      expect(mockFindWishlistByClientId).toHaveBeenCalledTimes(1);
+      expect(mockAddProductToWishlist).toHaveBeenCalledTimes(1);
+      expect(wishlist.products).toHaveLength(1);
     });
   });
 });
