@@ -3,13 +3,22 @@ import { CreateWishlistDto } from './dto/create-wishlist.dto';
 import { WishlistRepository } from './wishlist.repository';
 import { WishlistResponseDto } from './dto/wishlist-response.dto';
 import WishlistAlreadyExistsException from './exception/wishlist-already-exists.exception';
-import { Product } from './entities/wishlist.entity';
+import { Product, Wishlist } from './entities/wishlist.entity';
 import ProductAlreadyInWishlistException from './exception/product-already-in-wishlist.exception';
 import WishlistNotFoundException from './exception/wishlist-not-found.exception';
 
 @Injectable()
 export class WishlistService {
   constructor(private wishlistRepository: WishlistRepository) {}
+
+  private productIsAlreadyInWishlist(
+    productId: string,
+    wishlist: Wishlist,
+  ): boolean {
+    return wishlist.products.some(
+      (product: Product) => product.id === productId,
+    );
+  }
 
   async findWishlistByClientId(clientId: string): Promise<WishlistResponseDto> {
     return await this.wishlistRepository.findByClientId(clientId);
@@ -34,8 +43,9 @@ export class WishlistService {
     if (!wishlist) {
       throw new WishlistNotFoundException();
     }
-    const productAlreadyExistsInWishlist = wishlist.products.find(
-      (product) => product.id === productId,
+    const productAlreadyExistsInWishlist = this.productIsAlreadyInWishlist(
+      productId,
+      wishlist,
     );
     if (productAlreadyExistsInWishlist) {
       throw new ProductAlreadyInWishlistException();
