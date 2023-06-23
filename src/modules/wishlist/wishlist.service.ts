@@ -4,6 +4,7 @@ import { WishlistRepository } from './wishlist.repository';
 import { WishlistResponseDto } from './dto/wishlist-response.dto';
 import WishlistAlreadyExistsException from './exception/wishlist-already-exists.exception';
 import { Product } from './entities/wishlist.entity';
+import ProductAlreadyInWishlistException from './exception/product-already-in-wishlist';
 
 @Injectable()
 export class WishlistService {
@@ -29,7 +30,13 @@ export class WishlistService {
     clientId: string,
     productId: string,
   ): Promise<WishlistResponseDto> {
-    const { id: wishlistId } = await this.findWishlistByClientId(clientId);
+    const wishlist = await this.findWishlistByClientId(clientId);
+    const productAlreadyExistsInWishlist = wishlist.products.find(
+      (product) => product.id === productId,
+    );
+    if (productAlreadyExistsInWishlist) {
+      throw new ProductAlreadyInWishlistException();
+    }
     const product: Product = {
       id: '',
       title: '',
@@ -37,6 +44,6 @@ export class WishlistService {
       review: 5,
       price: 9.99,
     };
-    return this.wishlistRepository.addProduct(wishlistId, product);
+    return this.wishlistRepository.addProduct(wishlist.id, product);
   }
 }
