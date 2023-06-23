@@ -37,6 +37,10 @@ describe('ClientsController', () => {
     controller = module.get<ClientsController>(ClientsController);
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
