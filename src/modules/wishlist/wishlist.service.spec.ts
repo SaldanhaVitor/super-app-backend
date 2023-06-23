@@ -6,6 +6,7 @@ import { CreateWishlistDto } from './dto/create-wishlist.dto';
 import { WISHLIST } from './__mocks__/create-wishlist.mock';
 import WishlistAlreadyExistsException from './exception/wishlist-already-exists.exception';
 import { WISHLIST_WITH_PRODUCT } from './__mocks__/wishlist-products';
+import ProductAlreadyInWishlistException from './exception/product-already-in-wishlist';
 
 const mockSaveWishlist = jest.fn();
 const mockFindWishlistByClientId = jest.fn();
@@ -83,6 +84,20 @@ describe('WishlistService', () => {
       expect(mockFindWishlistByClientId).toHaveBeenCalledTimes(1);
       expect(mockAddProductToWishlist).toHaveBeenCalledTimes(1);
       expect(wishlist.products).toHaveLength(1);
+    });
+    it("shouldn't add a duplicated product to the wishlist", async () => {
+      mockFindWishlistByClientId.mockReturnValue(WISHLIST_WITH_PRODUCT);
+      const clientId = uuidv4();
+      mockAddProductToWishlist.mockReturnValue({
+        ...WISHLIST_WITH_PRODUCT,
+        clientId,
+      });
+      const [existentProduct] = WISHLIST_WITH_PRODUCT.products;
+      await expect(
+        service.addProductToWishlist(clientId, existentProduct.id),
+      ).rejects.toThrow(ProductAlreadyInWishlistException);
+      expect(mockFindWishlistByClientId).toHaveBeenCalledTimes(1);
+      expect(mockAddProductToWishlist).toHaveBeenCalledTimes(0);
     });
   });
 });
