@@ -6,7 +6,8 @@ import { CreateWishlistDto } from './dto/create-wishlist.dto';
 import { WISHLIST } from './__mocks__/create-wishlist.mock';
 import WishlistAlreadyExistsException from './exception/wishlist-already-exists.exception';
 import { WISHLIST_WITH_PRODUCT } from './__mocks__/wishlist-products';
-import ProductAlreadyInWishlistException from './exception/product-already-in-wishlist';
+import ProductAlreadyInWishlistException from './exception/product-already-in-wishlist.exception';
+import WishlistNotFoundException from './exception/wishlist-not-found.exception';
 
 const mockSaveWishlist = jest.fn();
 const mockFindWishlistByClientId = jest.fn();
@@ -96,6 +97,16 @@ describe('WishlistService', () => {
       await expect(
         service.addProductToWishlist(clientId, existentProduct.id),
       ).rejects.toThrow(ProductAlreadyInWishlistException);
+      expect(mockFindWishlistByClientId).toHaveBeenCalledTimes(1);
+      expect(mockAddProductToWishlist).toHaveBeenCalledTimes(0);
+    });
+    it("should throws when wishlist doesn't exists", async () => {
+      mockFindWishlistByClientId.mockReturnValue(undefined);
+      const clientId = uuidv4();
+      const productId = uuidv4();
+      await expect(
+        service.addProductToWishlist(clientId, productId),
+      ).rejects.toThrow(WishlistNotFoundException);
       expect(mockFindWishlistByClientId).toHaveBeenCalledTimes(1);
       expect(mockAddProductToWishlist).toHaveBeenCalledTimes(0);
     });
