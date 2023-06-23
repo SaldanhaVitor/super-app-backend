@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Version,
 } from '@nestjs/common';
 import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dto/create-client.dto';
@@ -18,6 +19,7 @@ export class ClientsController {
   constructor(private readonly clientsService: ClientsService) {}
 
   @ApiTags('clients')
+  @Version('1')
   @Post()
   @ApiResponse({
     status: 201,
@@ -63,12 +65,14 @@ export class ClientsController {
       },
     },
   })
+  @Version('1')
   @Get()
   findAll(): Promise<ClientResponseDto[]> {
     return this.clientsService.findAll();
   }
 
   @ApiTags('clients')
+  @Version('1')
   @Get(':id')
   @ApiResponse({
     status: 200,
@@ -93,6 +97,7 @@ export class ClientsController {
   }
 
   @ApiTags('clients')
+  @Version('1')
   @Patch(':id')
   @ApiResponse({
     status: 200,
@@ -118,6 +123,7 @@ export class ClientsController {
   }
 
   @ApiTags('clients')
+  @Version('1')
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<void> {
     await this.clientsService.remove(id);

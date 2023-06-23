@@ -11,6 +11,7 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
   );
+  app.enableVersioning({ type: VersioningType.URI });
   const config = app.get(ConfigService);
   const port = config.get('app.port');
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
