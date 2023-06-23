@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { WishlistResponseDto } from './dto/wishlist-response.dto';
-import { Wishlist } from './entities/wishlist.entity';
+import { Product, Wishlist } from './entities/wishlist.entity';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -28,6 +28,19 @@ export class WishlistRepository {
       const wishlist = this.wishlist.find(
         (wishlist) => wishlist.clientId === clientId,
       );
+      resolve(wishlist);
+    });
+  }
+
+  async addProduct(
+    wishlistId: string,
+    product: Product,
+  ): Promise<WishlistResponseDto> {
+    return new Promise((resolve) => {
+      const wishlist = this.wishlist.find(
+        (wishlist) => wishlist.id === wishlistId,
+      );
+      wishlist.products.push(product);
       resolve(wishlist);
     });
   }
