@@ -3,7 +3,8 @@ import { CreateWishlistDto } from './dto/create-wishlist.dto';
 import { WishlistRepository } from './wishlist.repository';
 import { WishlistResponseDto } from './dto/wishlist-response.dto';
 import WishlistAlreadyExistsException from './exception/wishlist-already-exists.exception';
-import { Product, Wishlist } from './entities/wishlist.entity';
+import { Wishlist } from './entities/wishlist.entity';
+import { Product } from '../product/entities/product.entity';
 import ProductAlreadyInWishlistException from './exception/product-already-in-wishlist.exception';
 import WishlistNotFoundException from './exception/wishlist-not-found.exception';
 

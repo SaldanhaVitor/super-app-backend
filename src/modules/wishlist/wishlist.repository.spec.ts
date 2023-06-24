@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { WishlistRepository } from './wishlist.repository';
 import { v4 as uuidv4 } from 'uuid';
-import { Product } from './entities/wishlist.entity';
+import { Product } from '../product/entities/product.entity';
 import { WishlistService } from './wishlist.service';
 
 describe('WishlistService', () => {

@@ -1,4 +1,4 @@
-import { Product } from '../entities/wishlist.entity';
+import { Product } from '../../product/entities/product.entity';
 
 export class WishlistResponseDto {
   id: string;

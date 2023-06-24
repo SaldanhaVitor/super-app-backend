@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { WishlistResponseDto } from './dto/wishlist-response.dto';
-import { Product, Wishlist } from './entities/wishlist.entity';
+import { Wishlist } from './entities/wishlist.entity';
+import { Product } from '../product/entities/product.entity';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()

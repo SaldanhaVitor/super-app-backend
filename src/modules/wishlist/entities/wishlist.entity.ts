@@ -1,10 +1,4 @@
-export type Product = {
-  id: string;
-  title: string;
-  image: string;
-  price: number;
-  review?: number;
-};
+import { Product } from '../../../modules/product/entities/product.entity';
 export class Wishlist {
   id: string;
   clientId: string;
