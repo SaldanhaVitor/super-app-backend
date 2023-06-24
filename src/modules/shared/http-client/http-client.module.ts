@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { HttpClientGatewayService } from './http-client-gateway.service';
+import { HttpClientService } from './http-client.service';
 import { AxiosAdapterModule } from 'src/modules/axios-adapter/axios-adapter.module';
 
 @Module({
   imports: [AxiosAdapterModule],
-  providers: [HttpClientGatewayService],
+  providers: [HttpClientService],
 })
-export class HttpClientGatewayModule {}
+export class HttpClientModule {}

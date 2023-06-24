@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { HttpClient } from '../shared/http-client-gateway/interfaces/http-client.interface';
+import { HttpClient } from '../shared/http-client/interfaces/http-client.interface';
 import axios from 'axios';
 
 @Injectable()
