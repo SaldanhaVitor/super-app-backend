@@ -13,6 +13,7 @@ import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ClientResponseDto } from './dto/client-response.dto';
+import { WishlistResponseDto } from '../wishlist/dto/wishlist-response.dto';
 
 @Controller('clients')
 export class ClientsController {
@@ -42,6 +43,32 @@ export class ClientsController {
   })
   create(@Body() createClientDto: CreateClientDto): Promise<ClientResponseDto> {
     return this.clientsService.create(createClientDto);
+  }
+
+  @ApiTags('clients')
+  @Version('1')
+  @Post(':id/wishlist/create')
+  @ApiResponse({
+    status: 201,
+    description: 'Wishlist created',
+    schema: {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'string',
+        },
+        name: {
+          type: 'string',
+        },
+        email: {
+          type: 'string',
+        },
+      },
+      required: ['name', 'email'],
+    },
+  })
+  createWishlist(@Param('id') clientId: string): Promise<WishlistResponseDto> {
+    return this.clientsService.createWishlist(clientId);
   }
 
   @ApiTags('clients')

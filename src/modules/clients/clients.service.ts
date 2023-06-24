@@ -5,10 +5,15 @@ import { ClientsRepository } from './clients.repository';
 import { ClientResponseDto } from './dto/client-response.dto';
 import ClientAlreadyExistsException from './exceptions/client-already-exists.exception';
 import ClientNotFoundException from './exceptions/client-not-found.exception';
+import { WishlistResponseDto } from '../wishlist/dto/wishlist-response.dto';
+import { WishlistService } from '../wishlist/wishlist.service';
 
 @Injectable()
 export class ClientsService {
-  constructor(private readonly clientRepository: ClientsRepository) {}
+  constructor(
+    private readonly clientRepository: ClientsRepository,
+    private readonly wishlistService: WishlistService,
+  ) {}
 
   private async findByEmail(email: string): Promise<ClientResponseDto> {
     return await this.clientRepository.findOneByEmail(email);
@@ -20,6 +25,10 @@ export class ClientsService {
       throw new ClientAlreadyExistsException();
     }
     return this.clientRepository.save(createClientDto);
+  }
+
+  async createWishlist(clientId: string): Promise<WishlistResponseDto> {
+    return this.wishlistService.create({ clientId });
   }
 
   async findAll(): Promise<ClientResponseDto[]> {

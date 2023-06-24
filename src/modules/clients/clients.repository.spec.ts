@@ -2,12 +2,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { ClientsRepository } from './clients.repository';
+import { WishlistModule } from '../wishlist/wishlist.module';
 
 describe('ClientsRepository', () => {
   let repository: ClientsRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [WishlistModule],
       providers: [ClientsService, ClientsRepository],
     }).compile();
 

@@ -6,6 +6,7 @@ import { ClientResponseDto } from './dto/client-response.dto';
 import { FIND_ALL_CLIENTS } from './__mocks__/find-all-clients.mock';
 import { EXISTENT_CLIENT } from './__mocks__/find-client-by-email.mock';
 import { v4 as uuidv4 } from 'uuid';
+import { WishlistModule } from '../wishlist/wishlist.module';
 
 const mockFindAllClientController = jest.fn();
 const mockCreateClientController = jest.fn();
@@ -18,6 +19,7 @@ describe('ClientsController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [WishlistModule],
       controllers: [ClientsController],
       providers: [
         {
