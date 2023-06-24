@@ -5,24 +5,24 @@ import { Product } from './entities/wishlist.entity';
 import { WishlistService } from './wishlist.service';
 
 describe('WishlistService', () => {
-  let service: WishlistRepository;
+  let repository: WishlistRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [WishlistService, WishlistRepository],
     }).compile();
 
-    service = module.get<WishlistRepository>(WishlistRepository);
+    repository = module.get<WishlistRepository>(WishlistRepository);
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(repository).toBeDefined();
   });
 
   describe('save', () => {
     it('should save wishlist', async () => {
       const clientId = uuidv4();
-      const wishlist = await service.save(clientId);
+      const wishlist = await repository.save(clientId);
       expect(wishlist).toBeDefined();
     });
   });
@@ -30,7 +30,7 @@ describe('WishlistService', () => {
   describe('addProductToWishlist', () => {
     it('should add product to wishlist', async () => {
       const clientId = uuidv4();
-      const wishlist = await service.save(clientId);
+      const wishlist = await repository.save(clientId);
       const product: Product = {
         id: uuidv4(),
         image: 'any_image',
@@ -38,7 +38,7 @@ describe('WishlistService', () => {
         price: 1.99,
         title: 'any_title',
       };
-      const wishlistWithProduct = await service.addProduct(
+      const wishlistWithProduct = await repository.addProduct(
         wishlist.id,
         product,
       );
@@ -50,8 +50,8 @@ describe('WishlistService', () => {
   describe('findByClientId', () => {
     it('should find whislist by clientId', async () => {
       const clientId = uuidv4();
-      await service.save(clientId);
-      const wishlistFound = await service.findByClientId(clientId);
+      await repository.save(clientId);
+      const wishlistFound = await repository.findByClientId(clientId);
       expect(wishlistFound).toBeDefined();
     });
   });
