@@ -30,12 +30,15 @@ export class ClientsController {
       properties: {
         id: {
           type: 'string',
+          example: '3e66aca2-7a37-430d-91c4-ffd4c537b848',
         },
         name: {
           type: 'string',
+          example: 'john',
         },
         email: {
           type: 'string',
+          example: 'john@mail.com',
         },
       },
       required: ['name', 'email'],
@@ -97,12 +100,15 @@ export class ClientsController {
         properties: {
           id: {
             type: 'string',
+            example: '3e66aca2-7a37-430d-91c4-ffd4c537b848',
           },
           name: {
             type: 'string',
+            example: 'john',
           },
           email: {
             type: 'string',
+            example: 'john@mail.com',
           },
         },
       },
@@ -125,12 +131,15 @@ export class ClientsController {
       properties: {
         id: {
           type: 'string',
+          example: '3e66aca2-7a37-430d-91c4-ffd4c537b848',
         },
         name: {
           type: 'string',
+          example: 'john',
         },
         email: {
           type: 'string',
+          example: 'john@mail.com',
         },
       },
     },
@@ -150,12 +159,15 @@ export class ClientsController {
       properties: {
         id: {
           type: 'string',
+          example: '3e66aca2-7a37-430d-91c4-ffd4c537b848',
         },
         name: {
           type: 'string',
+          example: 'john',
         },
         email: {
           type: 'string',
+          example: 'john@mail.com',
         },
       },
       required: ['name'],
