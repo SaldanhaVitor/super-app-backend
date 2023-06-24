@@ -6,10 +6,8 @@ const mockSwaggerModuleSetup = jest.fn();
 
 const mockDocumentBuilder = {
   setTitle: jest.fn(() => ({
-    setDescription: jest.fn(() => ({
-      setVersion: jest.fn(() => ({
-        build: jest.fn(),
-      })),
+    setVersion: jest.fn(() => ({
+      build: jest.fn(),
     })),
   })),
 };
@@ -34,16 +32,16 @@ describe('Swagger config class', () => {
     configSwagger = new ConfigSwagger({} as unknown as INestApplication);
   });
 
-  xit('should have a create document method', () => {
+  it('should have a create document method', () => {
     expect(configSwagger.createDocument).toBeDefined();
   });
 
-  xit('should call createDocument method from Swagger module when createDocument method is called', () => {
+  it('should call createDocument method from Swagger module when createDocument method is called', () => {
     configSwagger.createDocument();
     expect(mockSwaggerModuleCreateDocument).toHaveBeenCalled();
   });
 
-  xit('should call setup method from Swagger module when createDocument method is called', () => {
+  it('should call setup method from Swagger module when createDocument method is called', () => {
     configSwagger.createDocument();
     expect(mockSwaggerModuleSetup).toHaveBeenCalled();
   });
