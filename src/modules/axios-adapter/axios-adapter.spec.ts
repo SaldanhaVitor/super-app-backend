@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AxiosAdapterService } from './axios-adapter.service';
+import { AxiosAdapter } from './axios.adapter';
 
-describe('AxiosAdapterService', () => {
-  let service: AxiosAdapterService;
+describe('AxiosAdapter', () => {
+  let service: AxiosAdapter;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [AxiosAdapterService],
+      providers: [AxiosAdapter],
     }).compile();
 
-    service = module.get<AxiosAdapterService>(AxiosAdapterService);
+    service = module.get<AxiosAdapter>(AxiosAdapter);
   });
 
   it('should be defined', () => {

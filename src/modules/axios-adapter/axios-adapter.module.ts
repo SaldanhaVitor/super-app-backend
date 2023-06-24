@@ -1,9 +1,7 @@
 import { Module } from '@nestjs/common';
-import { AxiosAdapterService } from './axios-adapter.service';
-import { AxiosAdapterController } from './axios-adapter.controller';
+import { AxiosAdapter } from './axios.adapter';
 
 @Module({
-  controllers: [AxiosAdapterController],
-  providers: [AxiosAdapterService]
+  providers: [AxiosAdapter],
 })
 export class AxiosAdapterModule {}
