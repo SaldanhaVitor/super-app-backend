@@ -56,15 +56,31 @@ export class ClientsController {
       properties: {
         id: {
           type: 'string',
+          example: '3e66aca2-7a37-430d-91c4-ffd4c537b848',
         },
-        name: {
+        clientId: {
           type: 'string',
+          example: '0f58e503-6399-4cfd-770e-e025f30a2f5c',
         },
-        email: {
-          type: 'string',
+        products: {
+          type: 'array',
+          items: {
+            properties: {
+              id: {
+                type: 'string',
+                example: '3d4abf6d-b4e8-4258-925b-10f634881310',
+              },
+              title: {
+                type: 'string',
+                example: 'Dolce & Gabbana Dolce Floral Drops',
+              },
+              image: { type: 'string', example: 'path_to_image.png' },
+              price: { type: 'number', example: 8.99 },
+              review: { type: 'number', example: 4.7 },
+            },
+          },
         },
       },
-      required: ['name', 'email'],
     },
   })
   createWishlist(@Param('id') clientId: string): Promise<WishlistResponseDto> {
