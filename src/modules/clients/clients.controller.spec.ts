@@ -13,6 +13,7 @@ const mockCreateClientController = jest.fn();
 const mockFindOneController = jest.fn();
 const mockUpdateController = jest.fn();
 const mockRemoveController = jest.fn();
+const mockCreateWishlistController = jest.fn();
 
 describe('ClientsController', () => {
   let controller: ClientsController;
@@ -30,6 +31,7 @@ describe('ClientsController', () => {
             findOne: mockFindOneController,
             update: mockUpdateController,
             remove: mockRemoveController,
+            createWishlist: mockCreateWishlistController,
           },
         },
         ClientsRepository,
@@ -57,6 +59,14 @@ describe('ClientsController', () => {
       expect(mockCreateClientController).toHaveBeenCalledTimes(1);
     });
   });
+  describe('createWishlist', () => {
+    it('should call createWishlist', async () => {
+      mockCreateWishlistController.mockReturnValue(undefined);
+      const clientId = uuidv4();
+      await controller.createWishlist(clientId);
+      expect(mockCreateWishlistController).toHaveBeenCalledTimes(1);
+    });
+  });
   describe('findOne', () => {
     it('should call findOne', async () => {
       mockFindOneController.mockReturnValue(EXISTENT_CLIENT);
@@ -75,7 +85,6 @@ describe('ClientsController', () => {
       expect(mockFindAllClientController).toHaveBeenCalledTimes(1);
     });
   });
-
   describe('update', () => {
     it('should call update', async () => {
       mockUpdateController.mockReturnValue(FIND_ALL_CLIENTS);
@@ -86,7 +95,6 @@ describe('ClientsController', () => {
       expect(mockUpdateController).toHaveBeenCalledTimes(1);
     });
   });
-
   describe('remove', () => {
     it('should call remove', async () => {
       mockRemoveController.mockReturnValue(undefined);
