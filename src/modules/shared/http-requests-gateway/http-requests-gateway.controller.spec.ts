@@ -11,7 +11,9 @@ describe('HttpRequestsGatewayController', () => {
       providers: [HttpRequestsGatewayService],
     }).compile();
 
-    controller = module.get<HttpRequestsGatewayController>(HttpRequestsGatewayController);
+    controller = module.get<HttpRequestsGatewayController>(
+      HttpRequestsGatewayController,
+    );
   });
 
   it('should be defined', () => {

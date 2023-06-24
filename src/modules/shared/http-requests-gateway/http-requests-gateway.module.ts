@@ -4,6 +4,6 @@ import { HttpRequestsGatewayController } from './http-requests-gateway.controlle
 
 @Module({
   controllers: [HttpRequestsGatewayController],
-  providers: [HttpRequestsGatewayService]
+  providers: [HttpRequestsGatewayService],
 })
 export class HttpRequestsGatewayModule {}

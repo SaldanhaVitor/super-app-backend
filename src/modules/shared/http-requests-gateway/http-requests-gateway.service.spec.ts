@@ -9,7 +9,9 @@ describe('HttpRequestsGatewayService', () => {
       providers: [HttpRequestsGatewayService],
     }).compile();
 
-    service = module.get<HttpRequestsGatewayService>(HttpRequestsGatewayService);
+    service = module.get<HttpRequestsGatewayService>(
+      HttpRequestsGatewayService,
+    );
   });
 
   it('should be defined', () => {
