@@ -18,6 +18,7 @@ const mockFindOneById = jest.fn();
 const mockUpdateClient = jest.fn();
 const mockRemoveClient = jest.fn();
 const mockCreateWishlist = jest.fn();
+const mockAddProductToWishlist = jest.fn();
 
 describe('ClientsService', () => {
   let service: ClientsService;
@@ -33,6 +34,7 @@ describe('ClientsService', () => {
               provide: WishlistService,
               useValue: {
                 create: mockCreateWishlist,
+                addProductToWishlist: mockAddProductToWishlist,
               },
             },
           ],
@@ -103,6 +105,16 @@ describe('ClientsService', () => {
       const clientId = uuidv4();
       await service.createWishlist(clientId);
       expect(mockCreateWishlist).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('add product to whishlist', () => {
+    it('Should call addProductToWhishlist', async () => {
+      mockAddProductToWishlist.mockReturnValueOnce(undefined);
+      const clientId = uuidv4();
+      const productId = uuidv4();
+      await service.addProductToWishlist(clientId, productId);
+      expect(mockAddProductToWishlist).toHaveBeenCalledTimes(1);
     });
   });
 
