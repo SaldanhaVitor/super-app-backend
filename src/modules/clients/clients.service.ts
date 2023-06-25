@@ -35,7 +35,8 @@ export class ClientsService {
     clientId: string,
     productId: string,
   ): Promise<WishlistResponseDto> {
-    return this.wishlistService.addProductToWishlist(clientId, productId);
+    const client = await this.findOne(clientId);
+    return this.wishlistService.addProductToWishlist(client.id, productId);
   }
 
   async findAll(): Promise<ClientResponseDto[]> {
