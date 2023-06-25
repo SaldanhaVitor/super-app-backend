@@ -14,6 +14,7 @@ const mockFindOneController = jest.fn();
 const mockUpdateController = jest.fn();
 const mockRemoveController = jest.fn();
 const mockCreateWishlistController = jest.fn();
+const mockAddProductToWishlistController = jest.fn();
 
 describe('ClientsController', () => {
   let controller: ClientsController;
@@ -32,6 +33,7 @@ describe('ClientsController', () => {
             update: mockUpdateController,
             remove: mockRemoveController,
             createWishlist: mockCreateWishlistController,
+            addProductToWishlist: mockAddProductToWishlistController,
           },
         },
         ClientsRepository,
@@ -65,6 +67,15 @@ describe('ClientsController', () => {
       const clientId = uuidv4();
       await controller.createWishlist(clientId);
       expect(mockCreateWishlistController).toHaveBeenCalledTimes(1);
+    });
+  });
+  describe('addProductToWishlist', () => {
+    it('should call addProductToWishlist', async () => {
+      mockAddProductToWishlistController.mockReturnValue(undefined);
+      const clientId = uuidv4();
+      const productId = uuidv4();
+      await controller.addProductToWishlist(clientId, { productId });
+      expect(mockAddProductToWishlistController).toHaveBeenCalledTimes(1);
     });
   });
   describe('findOne', () => {
