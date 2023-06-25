@@ -8,16 +8,34 @@ import WishlistAlreadyExistsException from './exception/wishlist-already-exists.
 import { WISHLIST_WITH_PRODUCT } from './__mocks__/wishlist-products';
 import ProductAlreadyInWishlistException from './exception/product-already-in-wishlist.exception';
 import WishlistNotFoundException from './exception/wishlist-not-found.exception';
+import { ProductModule } from '../product/product.module';
+import { ProductService } from '../product/product.service';
+import { PRODUCT_FOUND } from '../product/__mocks__/product-found.mock';
 
 const mockSaveWishlist = jest.fn();
 const mockFindWishlistByClientId = jest.fn();
 const mockAddProductToWishlist = jest.fn();
+const mockGetProduct = jest.fn();
 
 describe('WishlistService', () => {
   let service: WishlistService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [
+        {
+          global: true,
+          module: ProductModule,
+          providers: [
+            {
+              provide: ProductService,
+              useValue: {
+                getProductById: mockGetProduct,
+              },
+            },
+          ],
+        },
+      ],
       providers: [
         WishlistService,
         {
@@ -73,6 +91,7 @@ describe('WishlistService', () => {
   describe('add product to wishlist', () => {
     it('should add a product', async () => {
       mockFindWishlistByClientId.mockReturnValue(WISHLIST);
+      mockGetProduct.mockReturnValue(PRODUCT_FOUND);
       const clientId = uuidv4();
       mockAddProductToWishlist.mockReturnValue({
         ...WISHLIST_WITH_PRODUCT,

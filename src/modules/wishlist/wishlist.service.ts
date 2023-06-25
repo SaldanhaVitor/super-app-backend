@@ -7,10 +7,14 @@ import { Wishlist } from './entities/wishlist.entity';
 import { Product } from '../product/entities/product.entity';
 import ProductAlreadyInWishlistException from './exception/product-already-in-wishlist.exception';
 import WishlistNotFoundException from './exception/wishlist-not-found.exception';
+import { ProductService } from '../product/product.service';
 
 @Injectable()
 export class WishlistService {
-  constructor(private wishlistRepository: WishlistRepository) {}
+  constructor(
+    private readonly wishlistRepository: WishlistRepository,
+    private readonly productService: ProductService,
+  ) {}
 
   private productIsAlreadyInWishlist(
     productId: string,
@@ -51,13 +55,9 @@ export class WishlistService {
     if (productAlreadyExistsInWishlist) {
       throw new ProductAlreadyInWishlistException();
     }
-    const product: Product = {
-      id: '',
-      title: '',
-      image: '',
-      review: 5,
-      price: 9.99,
-    };
+    const product: Product = await this.productService.getProductById(
+      productId,
+    );
     return this.wishlistRepository.addProduct(wishlist.id, product);
   }
 }

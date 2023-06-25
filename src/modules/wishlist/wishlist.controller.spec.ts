@@ -4,6 +4,7 @@ import { WishlistService } from './wishlist.service';
 import { WishlistRepository } from './wishlist.repository';
 import { v4 as uuidv4 } from 'uuid';
 import { WISHLIST } from './__mocks__/create-wishlist.mock';
+import { ProductModule } from '../product/product.module';
 
 const mockCreateWishlistController = jest.fn();
 
@@ -12,6 +13,7 @@ describe('WishlistController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [ProductModule],
       controllers: [WishlistController],
       providers: [
         {

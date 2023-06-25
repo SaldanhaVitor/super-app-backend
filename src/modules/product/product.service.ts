@@ -19,7 +19,7 @@ export class ProductService {
       );
       return ProductParser(product);
     } catch (error) {
-      throw new ProductGenericException(error.message, error.response.status);
+      throw new ProductGenericException(error.message, error.response);
     }
   }
 

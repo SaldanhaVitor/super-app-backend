@@ -3,12 +3,14 @@ import { WishlistRepository } from './wishlist.repository';
 import { v4 as uuidv4 } from 'uuid';
 import { Product } from '../product/entities/product.entity';
 import { WishlistService } from './wishlist.service';
+import { ProductModule } from '../product/product.module';
 
 describe('WishlistService', () => {
   let repository: WishlistRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [ProductModule],
       providers: [WishlistService, WishlistRepository],
     }).compile();
 
