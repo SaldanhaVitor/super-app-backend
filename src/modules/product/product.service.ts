@@ -25,12 +25,12 @@ export class ProductService {
 
   async listProducts(page: number): Promise<Product[]> {
     try {
-      const products = await this.httpClient.get(
+      const { products } = await this.httpClient.get(
         `${Constants.luizalabs.challengeApi}/?page=${page}`,
       );
       return AllProductsParser(products);
     } catch (error) {
-      throw new ProductGenericException(error.message, error.response.status);
+      throw new ProductGenericException(error.message, error.response);
     }
   }
 }
