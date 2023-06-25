@@ -44,5 +44,11 @@ describe('HttpClientService', () => {
       await service.get(Constants.luizalabs.challengeApi);
       expect(mockGetByAdapter).toHaveBeenCalledTimes(1);
     });
+    it('Should throws on error', async () => {
+      mockGetByAdapter.mockRejectedValue(new Error());
+      await expect(
+        service.get(Constants.luizalabs.challengeApi),
+      ).rejects.toThrow(new Error());
+    });
   });
 });

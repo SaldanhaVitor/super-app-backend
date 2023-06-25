@@ -5,11 +5,7 @@ import axios from 'axios';
 @Injectable()
 export class AxiosAdapter implements HttpClient {
   async get(url: string): Promise<any> {
-    try {
-      const response = await axios.get(url);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const response = await axios.get(url);
+    return response.data;
   }
 }
