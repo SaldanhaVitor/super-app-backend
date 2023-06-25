@@ -8,5 +8,6 @@ import { WishlistModule } from '../wishlist/wishlist.module';
   imports: [WishlistModule],
   controllers: [ClientsController],
   providers: [ClientsService, ClientsRepository],
+  exports: [ClientsService],
 })
 export class ClientsModule {}

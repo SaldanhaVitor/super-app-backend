@@ -7,6 +7,7 @@ import ClientAlreadyExistsException from './exceptions/client-already-exists.exc
 import ClientNotFoundException from './exceptions/client-not-found.exception';
 import { WishlistResponseDto } from '../wishlist/dto/wishlist-response.dto';
 import { WishlistService } from '../wishlist/wishlist.service';
+import { ParseClients, ParseClient } from './helpers/parse-clients.helper';
 
 @Injectable()
 export class ClientsService {
@@ -41,7 +42,8 @@ export class ClientsService {
   }
 
   async findAll(): Promise<ClientResponseDto[]> {
-    return this.clientRepository.findAll();
+    const clients = await this.clientRepository.findAll();
+    return ParseClients(clients);
   }
 
   async findOne(id: string): Promise<ClientResponseDto> {
@@ -49,7 +51,7 @@ export class ClientsService {
     if (!client) {
       throw new ClientNotFoundException();
     }
-    return client;
+    return ParseClient(client);
   }
 
   async update(

@@ -17,19 +17,20 @@ export class ClientsRepository {
       const newClient = {
         id: uuidv4(),
         ...createClientDto,
+        password: Math.floor(Math.random() * Date.now()).toString(36),
       };
       this.clients.push(newClient);
       resolve(newClient);
     });
   }
 
-  async findAll(): Promise<ClientResponseDto[]> {
+  async findAll(): Promise<Client[]> {
     return new Promise((resolve) => {
       resolve(this.clients);
     });
   }
 
-  async findOneById(id: string): Promise<ClientResponseDto> {
+  async findOneById(id: string): Promise<Client> {
     return new Promise((resolve) => {
       const client = this.clients.find((client) => client.id == id);
       resolve(client);
