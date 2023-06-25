@@ -111,10 +111,20 @@ describe('ClientsService', () => {
   describe('add product to whishlist', () => {
     it('Should call addProductToWhishlist', async () => {
       mockAddProductToWishlist.mockReturnValueOnce(undefined);
+      mockFindOneById.mockReturnValue(EXISTENT_CLIENT);
+
       const clientId = uuidv4();
       const productId = uuidv4();
       await service.addProductToWishlist(clientId, productId);
       expect(mockAddProductToWishlist).toHaveBeenCalledTimes(1);
+    });
+    it('Should throws when client is not found', async () => {
+      mockFindOneById.mockReturnValue(undefined);
+      const clientId = uuidv4();
+      const productId = uuidv4();
+      await expect(
+        service.addProductToWishlist(clientId, productId),
+      ).rejects.toThrow(ClientNotFoundException);
     });
   });
 
