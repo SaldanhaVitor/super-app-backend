@@ -93,7 +93,7 @@ export class ClientsController {
 
   @ApiTags('clients')
   @Version('1')
-  @Post(':id/wishlist/addProduct')
+  @Post(':id/wishlist/add-product')
   @ApiResponse({
     status: 201,
     description: 'Product added to Wishlist',
