@@ -7,7 +7,7 @@ export class WishlistController {
   constructor(private readonly wishlistService: WishlistService) {}
 
   @ApiTags('wishlist')
-  @Get(':clientId')
+  @Get('client/:clientId')
   @Version('1')
   @ApiResponse({
     status: 200,
