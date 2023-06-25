@@ -6,7 +6,7 @@ import {
   AllProductsParser,
   ProductParser,
 } from './helper/parser-product.helper';
-import ProductGenericException from './exceptions/product-generic-error.exception';
+import ProductNotFoundException from './exceptions/product-not-found.exception';
 
 @Injectable()
 export class ProductService {
@@ -17,10 +17,9 @@ export class ProductService {
       const product = await this.httpClient.get(
         `${Constants.luizalabs.challengeApi}/${productId}/`,
       );
-      console.log(product);
       return ProductParser(product);
     } catch (error) {
-      throw new ProductGenericException(error.message, error.response);
+      throw new ProductNotFoundException();
     }
   }
 
@@ -31,7 +30,7 @@ export class ProductService {
       );
       return AllProductsParser(products);
     } catch (error) {
-      throw new ProductGenericException(error.message, error.response);
+      throw new ProductNotFoundException();
     }
   }
 }

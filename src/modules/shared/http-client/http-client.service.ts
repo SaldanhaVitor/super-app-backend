@@ -7,6 +7,10 @@ export class HttpClientService implements HttpClient {
   constructor(private readonly httpAdapter: AxiosAdapter) {}
 
   async get(url: string): Promise<any> {
-    return await this.httpAdapter.get(url);
+    try {
+      return await this.httpAdapter.get(url);
+    } catch (error) {
+      throw error;
+    }
   }
 }

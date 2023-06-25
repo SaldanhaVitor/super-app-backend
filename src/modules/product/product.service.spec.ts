@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { PRODUCT_FOUND } from './__mocks__/product-found.mock';
 import { HttpClientModule } from '../shared/http-client/http-client.module';
 import { HttpClientService } from '../shared/http-client/http-client.service';
-import ProductGenericException from './exceptions/product-generic-error.exception';
+import ProductNotFoundException from './exceptions/product-not-found.exception';
 import { PRODUCTS } from './__mocks__/all-products';
 
 const mockEndpointGet = jest.fn();
@@ -58,7 +58,7 @@ describe('ProductService', () => {
       });
       const productId = uuidv4();
       await expect(service.getProductById(productId)).rejects.toThrow(
-        ProductGenericException,
+        ProductNotFoundException,
       );
       expect(mockEndpointGet).toHaveBeenCalledTimes(1);
     });
@@ -80,7 +80,7 @@ describe('ProductService', () => {
       });
       const page = 1;
       await expect(service.listProducts(page)).rejects.toThrow(
-        ProductGenericException,
+        ProductNotFoundException,
       );
       expect(mockEndpointGet).toHaveBeenCalledTimes(1);
     });
