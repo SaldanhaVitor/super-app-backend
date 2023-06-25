@@ -23,7 +23,7 @@ To start the application it is necessary to:
    - Run the command ```npm run start```;
 
 ## Swagger
-See the swagger docs in ```http://localhost:3000/api/docs``` to ensure you are able to make the requests when the application is running.
+See the swagger docs in ```http://localhost:3000/docs``` to ensure you are able to make the requests when the application is running.
 
 ## Autentication 
 
@@ -37,11 +37,11 @@ Keep your JWT token secure and do not share it with others. It acts as a credent
 
 ### How to Use the Application
 
-Register an account by providing the necessary information, such as username and email.
+Register an account by providing the necessary information, such as name and email.
 
 After successful registration, you will receive a JWT token as a response. This token will be required for authentication.
 
-Include the JWT token in the Authorization header of each request made to the application's API. The header should follow the format: Authorization: Bearer <your_token>. Replace <your_token> with the actual JWT token received during registration.
+Include the JWT token in the Authorization header of each request made to the application's API. The header should follow the format: <span style="font-weight:bold"> Authorization: Bearer <your_token> </span>. Replace <your_token> with the actual JWT token received during registration.
 
 Make requests to the application's endpoints, ensuring that the Authorization header is included in each request. Without a valid JWT token, the application will reject the request and return an appropriate error message.
 
