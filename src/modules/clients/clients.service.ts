@@ -31,6 +31,13 @@ export class ClientsService {
     return this.wishlistService.create({ clientId });
   }
 
+  async addProductToWishlist(
+    clientId: string,
+    productId: string,
+  ): Promise<WishlistResponseDto> {
+    return this.wishlistService.addProductToWishlist(clientId, productId);
+  }
+
   async findAll(): Promise<ClientResponseDto[]> {
     return this.clientRepository.findAll();
   }
