@@ -96,6 +96,14 @@ describe('WishlistService', () => {
       expect(wishlist).toBeDefined();
       expect(mockFindWishlistByClientId).toHaveBeenCalledTimes(1);
     });
+
+    it('should throws when wishlist is not found', async () => {
+      const clientId = uuidv4();
+      mockFindWishlistByClientId.mockReturnValue(undefined);
+      await expect(service.getWishlistByClientId(clientId)).rejects.toThrow(
+        WishlistNotFoundException,
+      );
+    });
   });
 
   describe('add product to wishlist', () => {

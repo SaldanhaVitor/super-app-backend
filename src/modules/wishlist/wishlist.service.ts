@@ -62,6 +62,10 @@ export class WishlistService {
   }
 
   async getWishlistByClientId(clientId: string) {
-    return this.wishlistRepository.findByClientId(clientId);
+    const wishlist = await this.findWishlistByClientId(clientId);
+    if (!wishlist) {
+      throw new WishlistNotFoundException();
+    }
+    return wishlist;
   }
 }
