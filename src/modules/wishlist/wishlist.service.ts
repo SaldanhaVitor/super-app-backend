@@ -60,4 +60,8 @@ export class WishlistService {
     );
     return this.wishlistRepository.addProduct(wishlist.id, product);
   }
+
+  async getWishlistByClientId(clientId: string) {
+    return this.wishlistRepository.findByClientId(clientId);
+  }
 }

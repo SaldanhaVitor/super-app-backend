@@ -6,8 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { WISHLIST } from './__mocks__/create-wishlist.mock';
 import { ProductModule } from '../product/product.module';
 
-const mockCreateWishlistController = jest.fn();
-
+const mockGetByClientIdWishlistController = jest.fn();
 describe('WishlistController', () => {
   let controller: WishlistController;
 
@@ -19,7 +18,7 @@ describe('WishlistController', () => {
         {
           provide: WishlistService,
           useValue: {
-            create: mockCreateWishlistController,
+            getWishlistByClientId: mockGetByClientIdWishlistController,
           },
         },
         WishlistRepository,
@@ -34,10 +33,11 @@ describe('WishlistController', () => {
   });
 
   describe('create', () => {
-    it('should call create', async () => {
-      mockCreateWishlistController.mockReturnValue(WISHLIST);
-      await controller.create({ clientId: uuidv4() });
-      expect(mockCreateWishlistController).toHaveBeenCalledTimes(1);
+    it('should call getWishlistByClientId', async () => {
+      mockGetByClientIdWishlistController.mockReturnValue(WISHLIST);
+      const clientId = uuidv4();
+      await controller.get(clientId);
+      expect(mockGetByClientIdWishlistController).toHaveBeenCalledTimes(1);
     });
   });
 });

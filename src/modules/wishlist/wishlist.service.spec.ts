@@ -88,6 +88,16 @@ describe('WishlistService', () => {
     });
   });
 
+  describe('getWishlistByClientId', () => {
+    it('should get wishlist by client Id', async () => {
+      const clientId = uuidv4();
+      mockFindWishlistByClientId.mockReturnValue(WISHLIST);
+      const wishlist = await service.getWishlistByClientId(clientId);
+      expect(wishlist).toBeDefined();
+      expect(mockFindWishlistByClientId).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe('add product to wishlist', () => {
     it('should add a product', async () => {
       mockFindWishlistByClientId.mockReturnValue(WISHLIST);
