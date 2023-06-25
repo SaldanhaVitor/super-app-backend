@@ -15,7 +15,7 @@ export class ProductService {
   async getProductById(productId: string): Promise<Product> {
     try {
       const product = await this.httpClient.get(
-        `${Constants.luizalabs.challengeApi}/${productId}`,
+        `${Constants.luizalabs.challengeApi}/${productId}/`,
       );
       return ProductParser(product);
     } catch (error) {
