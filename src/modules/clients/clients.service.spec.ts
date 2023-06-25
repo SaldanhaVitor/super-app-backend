@@ -9,6 +9,7 @@ import { EXISTENT_CLIENT } from './__mocks__/find-client-by-email.mock';
 import ClientNotFoundException from './exceptions/client-not-found.exception';
 import { UpdateClientDto } from './dto/update-client.dto';
 import { WishlistModule } from '../wishlist/wishlist.module';
+import { WishlistService } from '../wishlist/wishlist.service';
 
 const mockCreateClient = jest.fn();
 const mockFindClientByEmail = jest.fn();
@@ -16,13 +17,27 @@ const mockFindAllClients = jest.fn();
 const mockFindOneById = jest.fn();
 const mockUpdateClient = jest.fn();
 const mockRemoveClient = jest.fn();
+const mockCreateWishlist = jest.fn();
 
 describe('ClientsService', () => {
   let service: ClientsService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [WishlistModule],
+      imports: [
+        {
+          global: true,
+          module: WishlistModule,
+          providers: [
+            {
+              provide: WishlistService,
+              useValue: {
+                create: mockCreateWishlist,
+              },
+            },
+          ],
+        },
+      ],
       providers: [
         ClientsService,
         {
@@ -79,6 +94,15 @@ describe('ClientsService', () => {
       );
       expect(mockFindClientByEmail).toHaveBeenCalledTimes(1);
       expect(mockCreateClient).toHaveBeenCalledTimes(0);
+    });
+  });
+
+  describe('create whishlist', () => {
+    it('Should call create whishlist', async () => {
+      mockCreateWishlist.mockReturnValueOnce(undefined);
+      const clientId = uuidv4();
+      await service.createWishlist(clientId);
+      expect(mockCreateWishlist).toHaveBeenCalledTimes(1);
     });
   });
 
