@@ -5,6 +5,7 @@ import { appConfig } from './configs/app.config';
 import { WishlistModule } from './modules/wishlist/wishlist.module';
 import { ProductModule } from './modules/product/product.module';
 import { HttpClientModule } from './modules/shared/http-client/http-client.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { HttpClientModule } from './modules/shared/http-client/http-client.modul
     WishlistModule,
     ProductModule,
     HttpClientModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
