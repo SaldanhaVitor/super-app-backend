@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Version } from '@nestjs/common';
+import { Controller, Get, Param, Query, Version } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProductService } from './product.service';
 import { Product } from './entities/product.entity';
@@ -31,8 +31,8 @@ export class ProductController {
     },
   })
   @Version('1')
-  @Get(':page')
-  findAll(@Param('page') page: number): Promise<Product[]> {
+  @Get()
+  findAll(@Query('page') page: number): Promise<Product[]> {
     return this.productService.listProducts(Number(page));
   }
 }
