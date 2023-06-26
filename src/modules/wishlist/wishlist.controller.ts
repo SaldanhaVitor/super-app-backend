@@ -1,12 +1,15 @@
-import { Controller, Get, Version, Param } from '@nestjs/common';
+import { Controller, Get, Version, Param, UseGuards } from '@nestjs/common';
 import { WishlistService } from './wishlist.service';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('wishlist')
+@UseGuards(AuthGuard('jwt'))
 export class WishlistController {
   constructor(private readonly wishlistService: WishlistService) {}
 
   @ApiTags('wishlist')
+  @ApiBearerAuth()
   @Get('client/:clientId')
   @Version('1')
   @ApiResponse({

@@ -37,14 +37,14 @@ export class ClientsRepository {
     });
   }
 
-  async findOneByEmail(email: string): Promise<ClientResponseDto> {
+  async findOneByEmail(email: string): Promise<Client> {
     return new Promise((resolve) => {
       const client = this.clients.find((client) => client.email == email);
       resolve(client);
     });
   }
 
-  async update(updateClientDto: ClientResponseDto): Promise<ClientResponseDto> {
+  async update(updateClientDto: ClientResponseDto): Promise<Client> {
     return new Promise((resolve) => {
       const client = this.clients.find(
         (client) => client.id == updateClientDto.id,

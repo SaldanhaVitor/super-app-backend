@@ -8,6 +8,7 @@ import ClientNotFoundException from './exceptions/client-not-found.exception';
 import { WishlistResponseDto } from '../wishlist/dto/wishlist-response.dto';
 import { WishlistService } from '../wishlist/wishlist.service';
 import { ParseClients, ParseClient } from './helpers/parse-clients.helper';
+import { Client } from './entities/client.entity';
 
 @Injectable()
 export class ClientsService {
@@ -67,5 +68,13 @@ export class ClientsService {
   async remove(id: string): Promise<void> {
     const client = await this.findOne(id);
     await this.clientRepository.remove(client.id);
+  }
+
+  async findOneToAuthorize(email: string): Promise<Client> {
+    const client = await this.clientRepository.findOneByEmail(email);
+    if (!client) {
+      throw new ClientNotFoundException();
+    }
+    return client;
   }
 }

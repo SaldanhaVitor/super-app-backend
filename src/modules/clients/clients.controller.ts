@@ -7,14 +7,16 @@ import {
   Param,
   Delete,
   Version,
+  UseGuards,
 } from '@nestjs/common';
 import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ClientResponseDto } from './dto/client-response.dto';
 import { WishlistResponseDto } from '../wishlist/dto/wishlist-response.dto';
 import { AddProductDto } from './dto/add-product-request.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('clients')
 export class ClientsController {
@@ -50,6 +52,8 @@ export class ClientsController {
   }
 
   @ApiTags('clients')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @Version('1')
   @Post(':id/wishlist/create')
   @ApiResponse({
@@ -92,6 +96,8 @@ export class ClientsController {
   }
 
   @ApiTags('clients')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @Version('1')
   @Post(':id/wishlist/add-product')
   @ApiResponse({
@@ -140,6 +146,8 @@ export class ClientsController {
   }
 
   @ApiTags('clients')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @ApiResponse({
     status: 200,
     description: 'Clients',
@@ -170,6 +178,8 @@ export class ClientsController {
   }
 
   @ApiTags('clients')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @Version('1')
   @Get(':id')
   @ApiResponse({
@@ -198,6 +208,8 @@ export class ClientsController {
   }
 
   @ApiTags('clients')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @Version('1')
   @Patch(':id')
   @ApiResponse({
@@ -227,6 +239,8 @@ export class ClientsController {
   }
 
   @ApiTags('clients')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @Version('1')
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<void> {
