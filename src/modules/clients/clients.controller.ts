@@ -43,6 +43,10 @@ export class ClientsController {
           type: 'string',
           example: 'john@mail.com',
         },
+        password: {
+          type: 'string',
+          example: '615hdixg',
+        },
       },
       required: ['name', 'email'],
     },
