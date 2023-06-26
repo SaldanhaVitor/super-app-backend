@@ -1,7 +1,7 @@
-import { Product } from '../entities/product.entity';
+import { ProductResponse } from '../entities/product-response.entity';
 import { v4 as uuidv4 } from 'uuid';
 
-export const PRODUCT_FOUND_WITHOUT_REVIEW: Product = {
+export const PRODUCT_FOUND_WITHOUT_REVIEW: ProductResponse = {
   id: uuidv4(),
   title: 'any_product_title',
   image: 'any_image_path.png',

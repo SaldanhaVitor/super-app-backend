@@ -4,7 +4,9 @@ export const ProductParser = (productResponse: any): Product => {
   return {
     id: productResponse.id,
     title: productResponse.title,
-    review: productResponse?.reviewScore,
+    ...(productResponse.reviewScore !== undefined && {
+      review: productResponse.reviewScore,
+    }),
     image: productResponse.image,
     price: productResponse.price,
   };
@@ -16,7 +18,7 @@ export const AllProductsParser = (allProductsResponse: any[]): Product[] => {
     products.push({
       id: product.id,
       title: product.title,
-      review: product?.reviewScore,
+      ...(product.reviewScore !== undefined && { review: product.reviewScore }),
       image: product.image,
       price: product.price,
     });
