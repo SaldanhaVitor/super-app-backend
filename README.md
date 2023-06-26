@@ -31,13 +31,13 @@ The application utilizes JSON Web Tokens (JWT) for authentication. JWT is a comp
 
 To access the application's features, users must first register and create an account. Upon successful registration, a JWT token will be generated and provided to the user. This token serves as a credential and is required to authenticate subsequent requests.
 
-The JWT token has an expiration time, after which it becomes invalid. If your token expires, you will need to re-authenticate by logging in again to obtain a new token.
+The JWT token has an expiration time (120s), after which it becomes invalid. If your token expires, you will need to re-authenticate by logging in again to obtain a new token.
 
 Keep your JWT token secure and do not share it with others. It acts as a credential and provides access to your account within the application.
 
 ### How to Use the Application
 
-Register an account by providing the necessary information, such as name and email.
+Register an account (endpoint ```[POST] /v1/clients```) by providing the necessary information, such as name and email.
 
 After successful registration, you will receive a JWT token as a response. This token will be required for authentication.
 
