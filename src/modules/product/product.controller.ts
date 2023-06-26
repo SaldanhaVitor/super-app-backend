@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, Version } from '@nestjs/common';
+import { Controller, Get, Query, Version } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProductService } from './product.service';
 import { Product } from './entities/product.entity';
