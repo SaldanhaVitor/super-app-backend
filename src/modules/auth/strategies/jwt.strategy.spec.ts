@@ -7,6 +7,7 @@ import { ClientsService } from '../../../modules/clients/clients.service';
 import { AuthController } from '../auth.controller';
 import { AuthService } from '../auth.service';
 import { JwtStrategy } from './jwt.strategy';
+import { v4 as uuidv4 } from 'uuid';
 
 const mockSignJwt = jest.fn();
 const mockFindOneToAuthorize = jest.fn();
@@ -56,5 +57,15 @@ describe('JwtStrategy', () => {
 
   it('should be defined', () => {
     expect(strategy).toBeDefined();
+  });
+
+  describe('validate', () => {
+    it('should call validate method', async () => {
+      const jwtPayload = { sub: uuidv4(), email: 'any@mail.com' };
+      const jwtResponse = await strategy.validate(jwtPayload);
+      expect(jwtResponse).toBeDefined();
+      expect(jwtResponse.id).toBe(jwtPayload.sub);
+      expect(jwtResponse.email).toBe(jwtPayload.email);
+    });
   });
 });
