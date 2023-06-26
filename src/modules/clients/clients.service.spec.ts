@@ -169,6 +169,22 @@ describe('ClientsService', () => {
     });
   });
 
+  describe('findOneToAuthorize', () => {
+    it('Should find one client by email', async () => {
+      mockFindClientByEmail.mockReturnValueOnce(EXISTENT_CLIENT);
+      const client = await service.findOneToAuthorize(EXISTENT_CLIENT.email);
+      expect(client).toBeDefined();
+      expect(client.id).toEqual(EXISTENT_CLIENT.id);
+      expect(mockFindClientByEmail).toHaveBeenCalledTimes(1);
+    });
+    it('Should throws when client is not found', async () => {
+      mockFindClientByEmail.mockReturnValueOnce(undefined);
+      await expect(
+        service.findOneToAuthorize(EXISTENT_CLIENT.email),
+      ).rejects.toThrow(ClientNotFoundException);
+    });
+  });
+
   describe('update', () => {
     it("Should update client's name", async () => {
       mockFindOneById.mockReturnValueOnce(EXISTENT_CLIENT);
