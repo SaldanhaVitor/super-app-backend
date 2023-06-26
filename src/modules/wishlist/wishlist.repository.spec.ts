@@ -5,7 +5,7 @@ import { Product } from '../product/entities/product.entity';
 import { WishlistService } from './wishlist.service';
 import { ProductModule } from '../product/product.module';
 
-describe('WishlistService', () => {
+describe('WishlistRepository', () => {
   let repository: WishlistRepository;
 
   beforeEach(async () => {
