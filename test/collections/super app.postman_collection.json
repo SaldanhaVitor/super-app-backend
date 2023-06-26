@@ -1,0 +1,347 @@
+{
+	"info": {
+		"_postman_id": "614347e7-fb01-4d6b-ad8e-720756cc933b",
+		"name": "super app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20226670"
+	},
+	"item": [
+		{
+			"name": "clients",
+			"item": [
+				{
+					"name": "Create client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"client\",\n    \"email\": \"client@mail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/v1/clients",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"v1",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create wishlist",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZTI1NjFkZS1iNzA5LTQyYzAtYjVjYy0yY2Y1NjJmM2NkMDAiLCJlbWFpbCI6ImNsaWVudEBtYWlsLmNvbSIsImlhdCI6MTY4Nzc0NTA2MCwiZXhwIjoxNjg3NzQ1MTgwfQ.Uu91Gfqksk2lV6Z1T_p-b03UU39rjW6Fuj9MBT1D6rg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Aut",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/v1/clients/b87be6dc-13ca-4b39-9853-76c45ed8cb35/wishlist/create",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"v1",
+								"clients",
+								"b87be6dc-13ca-4b39-9853-76c45ed8cb35",
+								"wishlist",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add product to wishlist",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiODdiZTZkYy0xM2NhLTRiMzktOTg1My03NmM0NWVkOGNiMzUiLCJlbWFpbCI6ImNsaWVudEBtYWlsLmNvbSIsImlhdCI6MTY4Nzc0NTQ2MiwiZXhwIjoxNjg3NzQ1NTgyfQ.IadILqYN6MviWuvuDMAK92r-aPuX2fnnxvFpA6LJSjs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productId\": \"2fed4df3-5f11-c6a3-ac69-f9a408f2eff7\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/v1/clients/b87be6dc-13ca-4b39-9853-76c45ed8cb35/wishlist/add-product",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"v1",
+								"clients",
+								"b87be6dc-13ca-4b39-9853-76c45ed8cb35",
+								"wishlist",
+								"add-product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Client",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiODdiZTZkYy0xM2NhLTRiMzktOTg1My03NmM0NWVkOGNiMzUiLCJlbWFpbCI6ImNsaWVudEBtYWlsLmNvbSIsImlhdCI6MTY4Nzc0NTQ2MiwiZXhwIjoxNjg3NzQ1NTgyfQ.IadILqYN6MviWuvuDMAK92r-aPuX2fnnxvFpA6LJSjs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"new client name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/v1/clients/3b15d98b-a796-448c-b1f7-90cced646952",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"v1",
+								"clients",
+								"3b15d98b-a796-448c-b1f7-90cced646952"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find all clients",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZTI1NjFkZS1iNzA5LTQyYzAtYjVjYy0yY2Y1NjJmM2NkMDAiLCJlbWFpbCI6ImNsaWVudEBtYWlsLmNvbSIsImlhdCI6MTY4Nzc0NTA2MCwiZXhwIjoxNjg3NzQ1MTgwfQ.Uu91Gfqksk2lV6Z1T_p-b03UU39rjW6Fuj9MBT1D6rg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/v1/clients",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"v1",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find client by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZTI1NjFkZS1iNzA5LTQyYzAtYjVjYy0yY2Y1NjJmM2NkMDAiLCJlbWFpbCI6ImNsaWVudEBtYWlsLmNvbSIsImlhdCI6MTY4Nzc0NTA2MCwiZXhwIjoxNjg3NzQ1MTgwfQ.Uu91Gfqksk2lV6Z1T_p-b03UU39rjW6Fuj9MBT1D6rg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4YTc2NGMwMS1lZmVjLTQ4OWItOWNlYS1kOTM4MWFlNGUxYzAiLCJlbWFpbCI6InZpdG9yQG1haWwuY29tIiwiaWF0IjoxNjg3NzM5ODU2LCJleHAiOjE2ODc3Mzk5MTZ9._0tFn0TEEKy7_kjM_zfOvdQLXf8GridAwY-eAxZs7Y0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/v1/clients/fe2561de-b709-42c0-b5cc-2cf562f3cd00",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"v1",
+								"clients",
+								"fe2561de-b709-42c0-b5cc-2cf562f3cd00"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove client",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZTI1NjFkZS1iNzA5LTQyYzAtYjVjYy0yY2Y1NjJmM2NkMDAiLCJlbWFpbCI6ImNsaWVudEBtYWlsLmNvbSIsImlhdCI6MTY4Nzc0NTA2MCwiZXhwIjoxNjg3NzQ1MTgwfQ.Uu91Gfqksk2lV6Z1T_p-b03UU39rjW6Fuj9MBT1D6rg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/v1/clients/fe2561de-b709-42c0-b5cc-2cf562f3cd00",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"v1",
+								"clients",
+								"fe2561de-b709-42c0-b5cc-2cf562f3cd00"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "wishlist",
+			"item": [
+				{
+					"name": "Get wishlist by clientId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiODdiZTZkYy0xM2NhLTRiMzktOTg1My03NmM0NWVkOGNiMzUiLCJlbWFpbCI6ImNsaWVudEBtYWlsLmNvbSIsImlhdCI6MTY4Nzc0NTI5NiwiZXhwIjoxNjg3NzQ1NDE2fQ.1OVH0CUk651YNk5lM8QPW0_eggI728I-YpEy2IjI0ls",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/v1/wishlist/client/b87be6dc-13ca-4b39-9853-76c45ed8cb35",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"v1",
+								"wishlist",
+								"client",
+								"b87be6dc-13ca-4b39-9853-76c45ed8cb35"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"client@mail.com\",\n    \"password\": \"6cr4arzh\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/v1/auth/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "product",
+			"item": [
+				{
+					"name": "List all products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/v1/products?page=2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"v1",
+								"products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -49,6 +49,8 @@ If you encounter any issues or have questions regarding the authentication proce
 
 ## Test
 
+To run collections in postman, go to ```test/collections``` and import postman collection and environment to postman. There will be all endpoints to test application end-to-end.
+
 ```bash
 # unit tests
 $ npm run test
