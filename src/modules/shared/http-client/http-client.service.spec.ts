@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpClientService } from './http-client.service';
-import { AxiosAdapterModule } from '../../../modules/axios-adapter/axios-adapter.module';
-import { AxiosAdapter } from '../../../modules/axios-adapter/axios.adapter';
+import { AxiosAdapterModule } from './axios-adapter/axios-adapter.module';
+import { AxiosAdapter } from './axios-adapter/axios.adapter';
 import { Constants } from '../../../configs';
 
 const mockGetByAdapter = jest.fn();

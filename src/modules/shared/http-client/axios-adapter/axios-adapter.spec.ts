@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AxiosAdapter } from './axios.adapter';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { Constants } from '../../configs';
+import { Constants } from '../../../../configs';
 
 describe('AxiosAdapter', () => {
   let service: AxiosAdapter;
