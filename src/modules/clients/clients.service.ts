@@ -17,15 +17,22 @@ export class ClientsService {
     private readonly wishlistService: WishlistService,
   ) {}
 
-  private async findByEmail(email: string): Promise<ClientResponseDto> {
+  private async findByEmail(email: string): Promise<Client> {
     return await this.clientRepository.findOneByEmail(email);
   }
 
-  async create(createClientDto: CreateClientDto): Promise<ClientResponseDto> {
-    const clientAlreadyExists = await this.findByEmail(createClientDto.email);
-    if (clientAlreadyExists) {
+  private clientAlreadyExists(client:Client): boolean  {
+    return client && true
+  }
+
+  private clientCanBeCreated(client:Client) {
+    if (this.clientAlreadyExists(client)) {
       throw new ClientAlreadyExistsException();
     }
+  }
+
+  async create(createClientDto: CreateClientDto): Promise<ClientResponseDto> {
+    this.clientCanBeCreated(await this.findByEmail(createClientDto.email))
     return this.clientRepository.save(createClientDto);
   }
 
