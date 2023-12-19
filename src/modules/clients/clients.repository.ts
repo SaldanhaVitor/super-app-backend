@@ -25,9 +25,7 @@ export class ClientsRepository {
   }
 
   async findAll(): Promise<Client[]> {
-    return new Promise((resolve) => {
-      resolve(this.clients);
-    });
+    return Promise.resolve(this.clients)
   }
 
   async findOneById(id: string): Promise<Client> {
@@ -55,10 +53,6 @@ export class ClientsRepository {
   }
 
   async remove(id: string): Promise<void> {
-    new Promise((resolve) => {
-      const clientIndex = this.clients.findIndex((client) => client.id == id);
-      this.clients.splice(clientIndex, 1);
-      resolve(clientIndex);
-    });
+    this.clients.splice(this.clients.findIndex((client) => client.id == id), 1);
   }
 }
