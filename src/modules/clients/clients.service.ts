@@ -15,17 +15,17 @@ export class ClientsService {
   constructor(
     private readonly clientRepository: ClientsRepository,
     private readonly wishlistService: WishlistService,
-  ) {}
+  ) { }
 
   private async findByEmail(email: string): Promise<Client> {
     return await this.clientRepository.findOneByEmail(email);
   }
 
-  private clientAlreadyExists(client:Client): boolean  {
-    return client && true
+  private clientAlreadyExists(client: Client): boolean {
+    return !!client;
   }
 
-  private clientCanBeCreated(client:Client) {
+  private clientCanBeCreated(client: Client) {
     if (this.clientAlreadyExists(client)) {
       throw new ClientAlreadyExistsException();
     }
