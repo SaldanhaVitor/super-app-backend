@@ -25,7 +25,7 @@ export class ClientsService {
     return !!client;
   }
 
-  private clientCanBeCreated(client: Client) {
+  private clientCanBeCreated(client: Client): void {
     if (this.clientAlreadyExists(client)) {
       throw new ClientAlreadyExistsException();
     }
